@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ instance_title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body class="theme-vibrant">
+    <div id="app" class="app-shell">
+      <header class="app-header">
+        <div class="app-title">
+          <a href="/" class="logo-pill" aria-label="Home">PMM</a>
+          <div>
+            <h1>{{ instance_title }}</h1>
+            <p class="subtitle">Project Manage Myself</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="themeToggle" class="ghost-button" type="button">Toggle theme</button>
+          <button id="newProjectBtn" class="primary-button" type="button">New project</button>
+          <button id="newInstanceBtn" class="primary-button" type="button">New instance</button>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <h2>Your projects</h2>
+          </div>
+          <div id="projectsList" class="projects-list"></div>
+        </aside>
+
+        <section class="board-area">
+          <div id="projectOverview" class="project-overview empty-state">
+            <h2>No projects yet</h2>
+            <p>Create your first project to start tracking milestones.</p>
+               <button id="emptyNewProjectBtn" class="primary-button" type="button">
+              Create your first project
+            </button>
+          </div>
+          <div
+            id="projectTotalDuration"
+            class="project-total-duration hidden"
+            aria-live="polite"
+          ></div>
+          <div id="board" class="board hidden"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="modalBackdrop" class="modal-backdrop hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 id="modalTitle"></h2>
+          <button id="modalClose" class="icon-button" type="button" aria-label="Close">
+            ✕
+          </button>
+        </div>
+        <div id="modalBody" class="modal-body"></div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/state.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/confetti.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+  </body>
+  </html>
+
