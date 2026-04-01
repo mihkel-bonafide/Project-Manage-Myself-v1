@@ -3,7 +3,7 @@ from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
 
-from config import DATA_DIR, INSTANCE_DISPLAY_TITLE
+from config import DATA_DIR, INSTANCE_DISPLAY_TITLE, IS_SPAWNED_INSTANCE
 from instance_spawner import spawn_new_instance
 from storage import (
     add_milestone,
@@ -32,7 +32,10 @@ def create_app() -> Flask:
 
     @app.context_processor
     def inject_instance_title():
-        return {"instance_title": INSTANCE_DISPLAY_TITLE}
+        return {
+            "instance_title": INSTANCE_DISPLAY_TITLE,
+            "is_spawned_instance": IS_SPAWNED_INSTANCE,
+        }
 
     @app.route("/")
     def index():

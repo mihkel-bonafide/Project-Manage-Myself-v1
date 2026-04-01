@@ -13,7 +13,13 @@
           <a href="/" class="logo-pill" aria-label="Home">PMM</a>
           <div>
             <h1>{{ instance_title }}</h1>
-            <p class="subtitle">Project Manage Myself</p>
+            <p class="subtitle">
+              {% if is_spawned_instance %}
+                Project Manage Myself
+              {% else %}
+                Turning vague ideas into accountable milestones since 2026.
+              {% endif %}
+            </p>
           </div>
         </div>
         <div class="header-actions">
