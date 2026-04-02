@@ -127,6 +127,27 @@
     els.modalTitle = qs("modalTitle");
     els.modalBody = qs("modalBody");
     els.modalClose = qs("modalClose");
+    els.embiggenTextBtn = qs("embiggenTextBtn");
+  }
+
+  const TEXT_EMBIGGEN_KEY = "skepticalpm:textEmbiggen";
+
+  function applyTextEmbiggen(enabled) {
+    document.documentElement.classList.toggle("text-embiggened", enabled);
+    if (els.embiggenTextBtn) {
+      els.embiggenTextBtn.textContent = enabled ? "Debiggen text" : "Embiggen text";
+      els.embiggenTextBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+    }
+  }
+
+  function restoreTextEmbiggen() {
+    applyTextEmbiggen(window.localStorage.getItem(TEXT_EMBIGGEN_KEY) === "1");
+  }
+
+  function toggleTextEmbiggen() {
+    const next = window.localStorage.getItem(TEXT_EMBIGGEN_KEY) !== "1";
+    window.localStorage.setItem(TEXT_EMBIGGEN_KEY, next ? "1" : "0");
+    applyTextEmbiggen(next);
   }
 
   function openModal(title, bodyNode) {
@@ -757,6 +778,7 @@
   async function bootstrap() {
     initElements();
     restoreTheme();
+    restoreTextEmbiggen();
     AppState.restoreSelection();
 
     if (viewMode.type === "home") {
@@ -765,6 +787,10 @@
       }
       if (els.boardArea) {
         els.boardArea.classList.add("home-hidden");
+      }
+      if (els.embiggenTextBtn) {
+        els.embiggenTextBtn.classList.remove("hidden");
+        els.embiggenTextBtn.addEventListener("click", toggleTextEmbiggen);
       }
     }
 

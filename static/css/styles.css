@@ -243,9 +243,50 @@ body {
   gap: 8px;
 }
 
+.sidebar-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
 .sidebar-header h2 {
-  margin: 0 0 4px;
+  margin: 0;
   font-size: 0.9rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.embiggen-toggle {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  background: radial-gradient(circle at 30% 0, #22c55e, #38bdf8);
+  color: #020617;
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+  transition: transform 0.08s ease, filter 0.08s ease, box-shadow 0.08s ease;
+  white-space: nowrap;
+}
+
+.embiggen-toggle:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 8px 22px rgba(99, 102, 241, 0.45);
+}
+
+.embiggen-toggle:active {
+  transform: scale(0.97);
+}
+
+/* ~27% larger root text (12pt→~15pt feel) when toggled; applies app-wide */
+html.text-embiggened {
+  font-size: 127%;
 }
 
 .projects-list {

@@ -3,7 +3,7 @@ from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
 
-from config import DATA_DIR, INSTANCE_DISPLAY_TITLE, IS_SPAWNED_INSTANCE
+from config import DATA_DIR, INSTANCE_DISPLAY_TITLE
 from instance_spawner import spawn_new_instance
 from storage import (
     add_milestone,
@@ -15,6 +15,16 @@ from storage import (
     update_milestone,
     update_project,
 )
+
+
+def _is_spawned_instance_header() -> bool:
+    """Subtitle uses product name only for extra instances (spawn or manual PMM_DATA_FILE)."""
+    if os.environ.get("PMM_CHILD_INSTANCE") == "1":
+        return True
+    raw = (os.environ.get("PMM_DATA_FILE") or "").strip()
+    if not raw:
+        return False
+    return Path(raw).name != "pmm.json"
 
 
 def create_app() -> Flask:
@@ -34,7 +44,7 @@ def create_app() -> Flask:
     def inject_instance_title():
         return {
             "instance_title": INSTANCE_DISPLAY_TITLE,
-            "is_spawned_instance": IS_SPAWNED_INSTANCE,
+            "is_spawned_instance": _is_spawned_instance_header(),
         }
 
     @app.route("/")
